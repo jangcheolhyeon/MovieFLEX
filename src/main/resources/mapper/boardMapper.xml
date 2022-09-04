@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cheolhyeon.app.board">
+    <select id="boardAllCnt" resultType="int">
+        select count(*) from board;
+    </select>
+
+    <select id="selectList" parameterType="map" resultType="com.cheolhyeon.app.domain.BoardDto">
+        select bno, title, content, writer, view_cnt, comment_cnt, reg_date, update_date
+        from board
+        order by bno desc
+        limit #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectOne" parameterType="int" resultType="com.cheolhyeon.app.domain.BoardDto">
+        select bno, title, content, writer, view_cnt, comment_cnt, reg_date, update_date
+        from board
+        where bno = #{bno};
+    </select>
+
+    <delete id="deleteOne" parameterType="map" >
+        delete from board
+        where bno = #{bno} and writer = #{writer};
+    </delete>
+
+    <insert id="insertBoard" parameterType="com.cheolhyeon.app.domain.BoardDto">
+        insert into board (title, content, writer, view_cnt, comment_cnt, reg_date, update_date)
+        values(#{title}, #{content}, #{writer}, 0, 0, now(), now());
+    </insert>
+
+    <update id="updateBoard" parameterType="com.cheolhyeon.app.domain.BoardDto">
+        update board set title=#{title}, content=#{content}, update_date=now()
+        where bno=#{bno}
+    </update>
+
+    <update id="increaseView_cnt" parameterType="int">
+        update board
+        set view_cnt = view_cnt+1
+        where bno = #{bno}
+    </update>
+
+    <select id="searchConditionList" parameterType="com.cheolhyeon.app.domain.SearchCondition" resultType="com.cheolhyeon.app.domain.BoardDto">
+        select bno, title, content, writer, view_cnt, comment_cnt, reg_date, update_date
+        from board
+        where true
+        <choose>
+            <when test='option == "T"'>
+                and title like concat('%', #{keyword}, '%')
+            </when>
+
+            <when test='option == "W"'>
+                and writer like concat('%', #{keyword}, '%')
+            </when>
+
+            <when test='option == "A"'>
+                and title like concat('%', #{keyword}, '%')
+                or content like concat('%', #{keyword}, '%')
+            </when>
+        </choose>
+        order by bno desc
+        limit #{offset}, #{pageSize}
+    </select>
+
+    <select id="searchConditionCnt" parameterType="com.cheolhyeon.app.domain.SearchCondition" resultType="int">
+        select count(*)
+        from board
+        where true
+        <choose>
+            <when test='option == "T"'>
+                and title like concat('%', #{keyword}, '%')
+            </when>
+
+            <when test='option == "W"'>
+                and writer like concat('%', #{keyword}, '%')
+            </when>
+
+            <when test='option == "A"'>
+                and title like concat('%', #{keyword}, '%')
+                or content like concat('%', #{keyword}, '%')
+            </when>
+        </choose>
+    </select>
+
+    <update id="increaseCommentCnt" parameterType="map">
+        update board
+        set comment_cnt = comment_cnt + #{num}
+        where bno = #{bno};
+    </update>
+
+</mapper>

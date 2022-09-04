@@ -1,0 +1,53 @@
+li{
+    list-style:none;
+}
+
+.headerTag{
+    display:flex;
+    flex-direction:column;
+}
+
+.top_menu .menu_list{
+    display:flex;
+}
+
+.top_menu .logo{
+    font-weight:bold;
+    font-size:40px;
+    color:red;
+    border:3px solid red;
+    padding:5px 10px;
+    flex-shrink:1;
+}
+
+.top_menu a:visited{
+    text-decoration:none;
+}
+
+.top_menu a:link{
+    text-decoration:none;
+}
+
+.headerTag .timer{
+    font-weight:bold;
+    margin: 0 auto;
+}
+
+.menu_list li{
+    display:flex;
+    align-items:center;
+}
+
+.menu_list .menu{
+    color:#E50914;
+    font-weight: bold;
+    font-size:25px;
+    margin-right:20px;
+    padding:10px;
+    flex-shrink: 1;
+}
+
+.menu_list .menus{
+    display:flex;
+    margin-left:auto;
+}

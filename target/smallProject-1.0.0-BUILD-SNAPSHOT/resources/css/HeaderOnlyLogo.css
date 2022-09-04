@@ -1,0 +1,54 @@
+.headerTag{
+    display:flex;
+    flex-direction:column;
+}
+
+.logo{
+    display:flex;
+    margin-top:16px;
+}
+
+.logo a{
+    font-weight:bold;
+    margin-left:40px;
+    font-size:40px;
+    color:red;
+    border:3px solid red;
+    padding:5px 10px;
+}
+
+.logo a:visited{
+    text-decoration:none;
+}
+
+.logo a:link{
+    text-decoration:none;
+}
+
+.headerTag .timer{
+    font-weight:bold;
+    margin: 0 auto;
+}
+
+.loginFrame{
+    position:absolute;
+    left: 50%;
+    top: 50%;
+    transform:translate(-50%, -50%);
+    background-color:rgba(0,0,0,0.7);
+    border:1px solid black;
+    border-radius:15px;
+    padding:50px;
+    width:350px;
+}
+
+.loginFrame .title{
+    text-align:center;
+    font-size:60px;
+    margin-top:0;
+    margin-bottom: 40px;
+}
+
+.loginFrame button:hover{
+    cursor:pointer;
+}

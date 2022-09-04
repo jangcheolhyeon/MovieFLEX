@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cheolhyeon.app.user">
+    <insert id="insert" parameterType="com.cheolhyeon.app.domain.User">
+        insert into user_info (id, password, name, email, phone, birth, reg_date)
+        values(#{id}, #{password}, #{name}, #{email}, #{phone}, #{birth}, now());
+    </insert>
+
+    <select id="select" parameterType="map" resultType="com.cheolhyeon.app.domain.User">
+        select id, password, name, email, phone, birth, reg_date
+        from user_info
+        where id = #{id} and password = #{password};
+    </select>
+
+<!--    아이디 중복검사-->
+    <select id="selectId" parameterType="com.cheolhyeon.app.domain.User" resultType="int">
+        select count(*)
+        from user_Info
+        where id = #{id}
+    </select>
+
+<!--    이메일 중복검사-->
+    <select id="selectEmail" parameterType="com.cheolhyeon.app.domain.User" resultType="int">
+        select count(*)
+        from user_Info
+        where email = #{email}
+    </select>
+
+<!--    핸드폰 번호 중복검사-->
+    <select id="selectPhone" parameterType="com.cheolhyeon.app.domain.User" resultType="int">
+        select count(*)
+        from user_Info
+        where phone = #{phone}
+    </select>
+
+<!--    마이페이지에서 비밀번호 변경-->
+    <update id="updatePwd" parameterType="com.cheolhyeon.app.domain.User">
+        update user_info
+        set password = #{password}
+        where id = #{id};
+    </update>
+
+
+
+
+</mapper>

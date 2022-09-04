@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cheolhyeon.app.domain.comment">
+    <select id="selectAllCnt" resultType="int">
+        select count(*)
+        from comment;
+    </select>
+
+    <select id="selectList" parameterType="int" resultType="com.cheolhyeon.app.domain.CommentDto">
+        select cno, bno, ifnull(pcno, cno) as pcno, comment, commenter, reg_date, update_date
+        from comment
+        where bno = #{bno}
+        order by pcno asc, cno asc;
+    </select>
+
+    <select id="selectOne" parameterType="int" resultType="com.cheolhyeon.app.domain.CommentDto">
+        select * from comment
+        where cno = #{cno}
+    </select>
+
+    <delete id="deleteOne" parameterType="map">
+        delete from comment
+        where cno = #{cno} and commenter = #{commenter}
+    </delete>
+
+    <insert id="insert" parameterType="com.cheolhyeon.app.domain.CommentDto">
+        insert into comment (bno, pcno, comment, commenter, reg_date, update_date)
+        values (#{bno}, #{pcno}, #{comment}, #{commenter}, now(), now());
+    </insert>
+
+    <update id="update" parameterType="com.cheolhyeon.app.domain.CommentDto">
+        update comment
+        set comment = #{comment}, update_date = #{update_date}
+        where cno = #{cno} and commenter = #{commenter}
+    </update>
+</mapper>
